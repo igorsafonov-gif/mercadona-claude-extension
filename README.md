@@ -10,8 +10,9 @@ fill it together. Products are presented as a photo grid.
 > **You stay in control of payment.** There is no checkout or payment tool, by design. Claude fills
 > the cart; you review and pay in the Mercadona app, where Strong Customer Authentication happens.
 
-It's packaged as a **Claude Desktop extension** (`.mcpb`, described by `manifest.json`) and can also
-run as a plain local MCP server.
+It installs as a **Claude Desktop extension** (described by `manifest.json`) — load it **unpacked**
+via developer mode (see [Install](#install); the packed `.mcpb` doesn't install reliably). It can
+also run as a plain local MCP server.
 
 > Independent project. Not affiliated with, endorsed by, or sponsored by Mercadona. macOS-focused.
 
@@ -49,34 +50,15 @@ npm run build      # bundles src/ -> dist/server.mjs with esbuild
 `playwright-core` is kept external (it stays in `node_modules`); everything else is bundled into
 `dist/server.mjs`.
 
-## Run / install
+## Install
 
-### As a local MCP server
+> **Install it unpacked (developer mode).** This is the recommended and reliable path — the packed
+> `.mcpb` does not currently install cleanly in Claude Desktop, so use the unpacked folder below.
 
-```bash
-npm install && npm run build
-node dist/server.mjs
-```
+### As an unpacked Claude Desktop extension (recommended)
 
-Point any MCP client at `node /path/to/dist/server.mjs`. For Claude Desktop's config:
-
-```json
-{
-  "mcpServers": {
-    "mercadona": {
-      "command": "node",
-      "args": ["/absolute/path/to/mercadona-claude-extension/dist/server.mjs"],
-      "env": { "MERCADONA_BROWSER_CHANNEL": "chrome" }
-    }
-  }
-}
-```
-
-### As an unpacked Claude Desktop extension (developer mode)
-
-Load this folder directly, without packing a `.mcpb`. The build output (`dist/`) and runtime
-dependency (`node_modules/playwright-core`) are git-ignored, so after cloning you must produce them
-first:
+Load this folder directly. The build output (`dist/`) and runtime dependency
+(`node_modules/playwright-core`) are git-ignored, so after cloning you must produce them first:
 
 ```bash
 npm install        # installs playwright-core into node_modules/
@@ -99,16 +81,40 @@ run the `login` tool once to sign in.
 Requirements: **Node ≥ 18** on your `PATH` and **Google Chrome** installed (the `login` tool opens
 it). Rebuild (`npm run build`) after changing anything under `src/`, then reload the extension.
 
+### As a local MCP server
+
+If you don't want a Claude Desktop extension at all, run it as a plain MCP server:
+
+```bash
+npm install && npm run build
+node dist/server.mjs
+```
+
+Point any MCP client at `node /path/to/dist/server.mjs`. For Claude Desktop's config:
+
+```json
+{
+  "mcpServers": {
+    "mercadona": {
+      "command": "node",
+      "args": ["/absolute/path/to/mercadona-claude-extension/dist/server.mjs"],
+      "env": { "MERCADONA_BROWSER_CHANNEL": "chrome" }
+    }
+  }
+}
+```
+
 ### As a packed Claude Desktop extension (`.mcpb`)
 
-To produce a single double-clickable bundle instead:
+> ⚠️ Not currently recommended — Claude Desktop does not install the packed bundle reliably. Use the
+> unpacked path above instead. Kept here for completeness.
 
 ```bash
 npm run pack       # builds dist/, then packs a .mcpb via @anthropic-ai/mcpb
 ```
 
-Then open the resulting `.mcpb` with Claude Desktop. (The bundle includes `dist/` and the
-production `node_modules`, i.e. `playwright-core`.)
+This produces a single `.mcpb` bundle (it includes `dist/` and the production `node_modules`, i.e.
+`playwright-core`).
 
 ## Signing in
 
