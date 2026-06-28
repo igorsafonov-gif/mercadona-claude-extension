@@ -14,7 +14,7 @@ import {
   lineIsAvailable,
 } from "./mercadona/api.mjs";
 import { runLogin } from "./auth/login.mjs";
-import SKILL from "../skills/mercadona/SKILL.md";
+import SHOPPING_GUIDE from "./shopping-guide.md";
 
 const STATE_PATH = process.env.MERCADONA_STATE_PATH || path.join(os.homedir(), ".mercadona", "storage_state.json");
 
@@ -73,7 +73,7 @@ server.registerTool(
     description: "Return the Mercadona shopping playbook: how to present products (ALWAYS as a photo-grid artifact), fill and review the real cart, use 'my regulars', and reorder past shops. Call this once at the start of any Mercadona task — before searching or adding to the cart — and follow it.",
     inputSchema: {},
   },
-  async () => ({ content: [{ type: "text", text: SKILL }] })
+  async () => ({ content: [{ type: "text", text: SHOPPING_GUIDE }] })
 );
 
 server.registerTool(

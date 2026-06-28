@@ -10,10 +10,8 @@ fill it together. Products are presented as a photo grid.
 > **You stay in control of payment.** There is no checkout or payment tool, by design. Claude fills
 > the cart; you review and pay in the Mercadona app, where Strong Customer Authentication happens.
 
-It ships in two forms from the same source:
-
-- a **Claude Desktop extension** (`.mcpb`) — `manifest.json`
-- a **Claude Code plugin** — `.claude-plugin/plugin.json` + `.mcp.json` + `skills/`
+It's packaged as a **Claude Desktop extension** (`.mcpb`, described by `manifest.json`) and can also
+run as a plain local MCP server.
 
 > Independent project. Not affiliated with, endorsed by, or sponsored by Mercadona. macOS-focused.
 
@@ -73,11 +71,6 @@ Point any MCP client at `node /path/to/dist/server.mjs`. For Claude Desktop's co
   }
 }
 ```
-
-### As a Claude Code plugin
-
-After `npm install && npm run build`, add this directory as a plugin. The `.mcp.json` wires up the
-server via `${CLAUDE_PLUGIN_ROOT}` and `skills/mercadona/SKILL.md` ships the shopping playbook.
 
 ### As a Claude Desktop extension (`.mcpb`)
 

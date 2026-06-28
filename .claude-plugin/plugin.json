@@ -1,9 +1,0 @@
-{
-  "name": "mercadona",
-  "description": "Shop at Mercadona from Claude: search the catalog, fill and review the real cart, reorder past shops, and always show products as an HTML artifact photo grid. The human reviews and pays in the Mercadona app.",
-  "version": "0.1.0",
-  "author": {
-    "name": "Igor Safonov",
-    "url": "https://github.com/igorsafonov-gif"
-  }
-}
