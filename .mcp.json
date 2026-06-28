@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "mercadona": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/dist/server.mjs"],
+      "env": {
+        "MERCADONA_BROWSER_CHANNEL": "chrome"
+      }
+    }
+  }
+}

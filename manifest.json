@@ -1,0 +1,99 @@
+{
+  "manifest_version": "0.3",
+  "name": "mercadona",
+  "display_name": "Mercadona",
+  "version": "0.1.0",
+  "description": "Shop at Mercadona from Claude — search the catalog, fill and review the real cart, reorder past shops, and show products as photo grids. You sign in in a browser and pay in the Mercadona app.",
+  "long_description": "Shop your Mercadona online groceries by talking to Claude. The extension drives your own authenticated Mercadona session: it browses the catalog for your delivery area, reads your purchase history and \"my regulars,\" and adds, changes, or removes items in your real cart so you and Claude can fill it together.\n\n**Key Features:**\n• **Search and browse** the catalog scoped to your delivery area, with prices in euros.\n• **Fill the real cart** — add items, set quantities, or remove them; every change is reversible.\n• **Reorder a past shop** in one step with \"buy again,\" skipping anything no longer available.\n• **See what you usually buy** from \"my regulars\" and recent orders to build a weekly shop fast.\n• **Photo grids** — products are shown as an HTML artifact with photo, name, price, and link.\n• **Delivery slots** — check available delivery windows for your address.\n\n**You stay in control of payment.** There is no checkout or payment tool, by design — Claude fills the cart and you review and pay in the Mercadona app, where Strong Customer Authentication happens. Sign in once through a browser window (handling any 2FA); the session is stored locally on your machine and never leaves it.\n\nThis extension targets Claude Desktop. It is an independent project and is not affiliated with, endorsed by, or sponsored by Mercadona.",
+  "author": {
+    "name": "Igor Safonov",
+    "url": "https://github.com/igorsafonov-gif"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "keywords": [
+    "mercadona",
+    "grocery",
+    "groceries",
+    "shopping",
+    "supermarket",
+    "cart",
+    "reorder",
+    "spain",
+    "food"
+  ],
+  "tools": [
+    {
+      "name": "get_shopping_guide",
+      "description": "Return the Mercadona shopping playbook (how to present products, fill the cart, use regulars, reorder). Read first, at the start of any Mercadona task."
+    },
+    {
+      "name": "auth_status",
+      "description": "Check whether the Mercadona session is valid and how long the token lasts."
+    },
+    {
+      "name": "login",
+      "description": "Open a browser window to sign in to Mercadona (handling any 2FA); the session is saved so the other tools work."
+    },
+    {
+      "name": "search_products",
+      "description": "Find products and their ids in your delivery area; an id is needed before adding to the cart."
+    },
+    {
+      "name": "get_product",
+      "description": "Get details for a single product by id."
+    },
+    {
+      "name": "get_cart",
+      "description": "Show the current real cart: items, quantities, and total."
+    },
+    {
+      "name": "get_my_regulars",
+      "description": "Products you usually buy (precision = most bought; recall = also bought)."
+    },
+    {
+      "name": "get_purchase_history",
+      "description": "List past orders with date, total, status, and item count."
+    },
+    {
+      "name": "get_order_items",
+      "description": "List the products in a past order without adding anything (defaults to the latest order)."
+    },
+    {
+      "name": "get_delivery_slots",
+      "description": "Show available delivery slots for your address."
+    },
+    {
+      "name": "add_to_cart",
+      "description": "Add a product to the real cart by id (increments the quantity if it is already present)."
+    },
+    {
+      "name": "set_quantity",
+      "description": "Set the exact quantity of a product in the cart (0 removes it)."
+    },
+    {
+      "name": "remove_from_cart",
+      "description": "Remove a product from the cart entirely."
+    },
+    {
+      "name": "reorder_order",
+      "description": "Add all items from a past order to the cart in one step (a 'buy again'); defaults to the latest order."
+    }
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "dist/server.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/dist/server.mjs"],
+      "env": { "MERCADONA_BROWSER_CHANNEL": "chrome" }
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": ["darwin"],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  }
+}

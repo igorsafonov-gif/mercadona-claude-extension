@@ -1,0 +1,18 @@
+# dependencies
+node_modules/
+
+# build output (run `npm run build`)
+dist/
+
+# packaged distributions
+*.mcpb
+*.zip
+
+# local Mercadona session / secrets — NEVER commit
+.mercadona/
+storage_state.json
+*.storage_state.json
+
+# misc
+.DS_Store
+*.log
